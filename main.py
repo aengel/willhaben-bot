@@ -7,6 +7,8 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 my_secret = os.environ['TOKEN']
+gearchannel_id = 1028398902610776184
+matches = ["https://www.willhaben.at", "ebay.at", "ebay.de","ebay.com"]
 
 @client.event
 async def on_ready():
@@ -18,8 +20,8 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if 'https://www.willhaben.at' in message.content:
-        gearchannel = client.get_channel(1028398902610776184)
+    if any(x in message.content for x in matches):
+        gearchannel = client.get_channel(gearchannel_id)
         await gearchannel.send(message.content)
         #await message.channel.send('ich will!')
 
